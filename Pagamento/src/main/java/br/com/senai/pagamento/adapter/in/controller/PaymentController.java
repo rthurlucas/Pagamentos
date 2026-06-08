@@ -5,8 +5,10 @@ import br.com.senai.pagamento.adapter.in.controller.resquest.CreatePaymentReques
 import br.com.senai.pagamento.adapter.in.controller.resquest.RefundPaymentRequest;
 import br.com.senai.pagamento.application.port.in.StdPayament;
 import br.com.senai.pagamento.application.service.PaymentService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,13 +22,13 @@ public class PaymentController implements StdPayament {
     }
     @Override
     @PostMapping("/toPay")
-    public ResponseEntity<PaymentDetailsResponse> toPay(CreatePaymentRequest data) {
-        return ResponseEntity.ok(service.cretePayment(data);
+    public ResponseEntity<PaymentDetailsResponse> toPay(@RequestBody @Valid CreatePaymentRequest data) {
+        return ResponseEntity.ok(service.cretePayment(data));
     }
 
     @Override
     @PostMapping("/refund")
-    public ResponseEntity<Void> toRefund(RefundPaymentRequest data) {
+    public ResponseEntity<Void> toRefund(@RequestBody @Valid RefundPaymentRequest data) {
         service.refundPayment(data);
         return ResponseEntity.ok().build();
     }
